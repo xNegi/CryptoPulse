@@ -9,7 +9,7 @@ import TopCoins from './components/TopCoins';
 import MostVisited from './components/MostVisited';
 import NewCoins from './components/NewCoins';
 import TrendingCoins from './components/TrendingCoins';
-import Profile from './pages/profile';
+import Profile from './pages/Profile';
 import { AuthProvider } from './context/AuthContext';
 
 function App() {
