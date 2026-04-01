@@ -31,6 +31,11 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema);
 
+// render deployment check
+app.get("/", (req, res) => {
+  res.send("CryptoPulse API is running 🚀");
+});
+
 // POST
 app.post("/api/auth/signup", async (req, res) => {
   try {
