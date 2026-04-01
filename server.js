@@ -31,16 +31,30 @@ const userSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model("User", userSchema);
+let cachedData = null;
+let lastFetchTime = 0;
 
 app.get("/api/crypto", async (req, res) => {
   try {
+    const now = Date.now();
+
+    // cache for 60 seconds
+    if (cachedData && now - lastFetchTime < 60000) {
+      return res.json(cachedData);
+    }
+
     const response = await fetch(
       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1"
     );
+
     const data = await response.json();
+
+    cachedData = data;
+    lastFetchTime = now;
+
     res.json(data);
   } catch (err) {
-    res.status(500).json({ error: "Failed to fetch crypto data" });
+    res.status(500).json([]);
   }
 });
 
