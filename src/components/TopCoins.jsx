@@ -8,7 +8,7 @@ export default function  TopCoins(){
 
 
 useEffect(()=>{
-    fetch("https://corsproxy.io/?https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1")
+    fetch("https://cryptopulse-backend-465t.onrender.com/api/crypto")
     .then((res)=> res.json())
     .then((data)=> {
         setCoins(data);
@@ -36,7 +36,7 @@ if (loading) return <ApiLoading />
                     </tr>
                 </thead>
                 <tbody>
-                    {coins.map((coin)=> (
+                    {Array.isArray(coins) && coins.map((coin)=> (
                         <tr key={coin.id} className='border hover hover:bg-gray-400 transition Bgray'>
                             <td className="p-2">{coin.market_cap_rank}</td> 
                             <td className="p-2">
