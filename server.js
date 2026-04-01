@@ -31,6 +31,18 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema);
 
+app.get("/api/crypto", async (req, res) => {
+  try {
+    const response = await fetch(
+      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1"
+    );
+    const data = await response.json();
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch crypto data" });
+  }
+});
+
 // render deployment check
 app.get("/", (req, res) => {
   res.send("CryptoPulse API is running 🚀");
